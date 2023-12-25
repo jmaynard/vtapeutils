@@ -2,11 +2,11 @@
 
   TAP.H - data definitions and function prototypes for SIMH/E11 processing
 
-This file is part of the vtapeutils package of virtual tape amnagement
+This file is part of the vtapeutils package of virtual tape management
 utilities. The package is hosted at SourceForge. Complete information may be
 found at the summary page, http://sourceforge.net/projects/vtapeutils/ .
 
-Copyright (c) 2005, James R. Maynard, III
+Copyright (c) 2005, 2007, James R. Maynard, III
  All rights reserved.
 
 See the file LICENSE in this distribution for license terms.
@@ -33,7 +33,8 @@ typedef struct _TAP_HDR {
 #define TAP_MAX_RECLEN 16777215		/* maximum length of a tape record */
 
 /* Functions. */
-int tap_read(VTAPE_FILE *infile, char *buffer, unsigned int maxlen);
-int tap_write(VTAPE_FILE *outfile, char *buffer, unsigned int reclength);
+int tap_read(VTAPE_FILE *infile, unsigned char *buffer, unsigned int maxlen);
+int tap_write(VTAPE_FILE *outfile, unsigned char *buffer,
+              unsigned int reclength);
 int tap_open(VTAPE_FILE *file, char *filename, char *mode);
 int tap_close(VTAPE_FILE *file);

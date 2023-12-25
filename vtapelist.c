@@ -2,11 +2,11 @@
 
   VTAPELIST.C - Lists the contents of a virtual tape
 
-This file is part of the vtapeutils package of virtual tape amnagement
+This file is part of the vtapeutils package of virtual tape management
 utilities. The package is hosted at SourceForge. Complete information may be
 found at the summary page, http://sourceforge.net/projects/vtapeutils/ .
 
-Copyright (c) 2005, James R. Maynard, III
+Copyright (c) 2005, 2007, James R. Maynard, III
  All rights reserved.
 
 See the file LICENSE in this distribution for license terms.
@@ -17,19 +17,16 @@ See the file LICENSE in this distribution for license terms.
 #include <string.h>
 #include <errno.h>
 #include "vtape.h"
+#include "stdlabel.h"
 
 #define MAXREC 65535
-
-void do_standard_label(char *label)
-{
-}
 
 int main(int argc, char *argv[])
 {
   int result;
-  int totalblkcnt, filecnt, fileblkcnt, reclen, maxrec, minrec;
+  int totalblkcnt, filecnt, fileblkcnt, reclen, maxrec, minrec, stdlabel;
   VTAPE_FILE tape;
-  char buffer[MAXREC];
+  unsigned char buffer[MAXREC];
   
   if (argc != 2) {
     printf("Usage: %s <tapefile>\n",argv[0]);
@@ -42,8 +39,9 @@ int main(int argc, char *argv[])
     exit(1);
   }
   totalblkcnt = fileblkcnt = maxrec = 0;
-  minrec=MAXREC;
+  minrec = MAXREC;
   filecnt = 1;
+  stdlabel = FALSE;
   
   while (1) {
     reclen = vtape_read(&tape, buffer, MAXREC);
@@ -52,21 +50,25 @@ int main(int argc, char *argv[])
       printf("Error reading tape file: %s\n", strerror(errno));
       exit(1);
     } else if (reclen == 0) {
-      printf("File %d: %d record%s", filecnt++, fileblkcnt,
-              (fileblkcnt != 1) ? "s" : "");
-      if (fileblkcnt > 0) {
-        printf(", minimum record length %d, maximum record length %d",
-                minrec, maxrec);
+      if (!stdlabel) {
+        printf("File %d: %d record%s", filecnt++, fileblkcnt,
+                (fileblkcnt != 1) ? "s" : "");
+        if (fileblkcnt > 0) {
+          printf(", minimum record length %d, maximum record length %d",
+                  minrec, maxrec);
+        }
+        printf("\n");
+      } else {
+        tape.fileblkcnt = fileblkcnt;
       }
       fileblkcnt = maxrec = 0;
       minrec = MAXREC;
-      printf("\n");
     } else {
       fileblkcnt++;
       totalblkcnt++;
       if (reclen > maxrec) maxrec = reclen;
       if (reclen < minrec) minrec = reclen;
-      if (reclen = 80) do_standard_label(buffer);
+      if (reclen = 80) stdlabel = do_standard_label(&tape,buffer) || stdlabel;
     }
   }
   printf("Complete. %d records processed.\n", totalblkcnt);

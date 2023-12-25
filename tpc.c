@@ -2,7 +2,7 @@
 
   TPC.C - TPC (DECUS archive) tape processing routines
 
-This file is part of the vtapeutils package of virtual tape amnagement
+This file is part of the vtapeutils package of virtual tape management
 utilities. The package is hosted at SourceForge. Complete information may be
 found at the summary page, http://sourceforge.net/projects/vtapeutils/ .
 
@@ -18,7 +18,7 @@ See the file LICENSE in this distribution for license terms.
 #include "vtape.h"
 #include "tpc.h"
 
-int tpc_read(VTAPE_FILE *infile, char *buffer, unsigned int maxlen)
+int tpc_read(VTAPE_FILE *infile, unsigned char *buffer, unsigned int maxlen)
 {
   TPC_HDR header;
   int reclen;
@@ -55,7 +55,8 @@ int tpc_read(VTAPE_FILE *infile, char *buffer, unsigned int maxlen)
   return reclen;
 }
 
-int tpc_write(VTAPE_FILE *outfile, char *buffer, unsigned int reclength)
+int tpc_write(VTAPE_FILE *outfile, unsigned char *buffer,
+              unsigned int reclength)
 {
   TPC_HDR header;
 

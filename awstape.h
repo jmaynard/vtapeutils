@@ -2,11 +2,11 @@
 
   AWSTAPE.H - Data definitions and function prototypes for AWSTAPE processing
 
-This file is part of the vtapeutils package of virtual tape amnagement
+This file is part of the vtapeutils package of virtual tape management
 utilities. The package is hosted at SourceForge. Complete information may be
 found at the summary page, http://sourceforge.net/projects/vtapeutils/ .
 
-Copyright (c) 2005, James R. Maynard, III
+Copyright (c) 2005, 2007, James R. Maynard, III
  All rights reserved.
 
 See the file LICENSE in this distribution for license terms.
@@ -40,7 +40,9 @@ typedef struct _AWSTAPE_HDR {
 
 /* Functions. */
 
-int awstape_read(VTAPE_FILE *infile, char *buffer, unsigned int maxlen);
-int awstape_write(VTAPE_FILE *outfile, char *buffer, unsigned int reclength);
+int awstape_read(VTAPE_FILE *infile, unsigned char *buffer,
+                  unsigned int maxlen);
+int awstape_write(VTAPE_FILE *outfile, unsigned char *buffer,
+                  unsigned int reclength);
 int awstape_open(VTAPE_FILE *file, char *filename, char *mode);
 int awstape_close(VTAPE_FILE *file);

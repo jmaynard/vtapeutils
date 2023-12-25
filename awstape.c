@@ -2,11 +2,11 @@
 
   AWSTAPE.C - AWSTAPE processing routines
 
-This file is part of the vtapeutils package of virtual tape amnagement
+This file is part of the vtapeutils package of virtual tape management
 utilities. The package is hosted at SourceForge. Complete information may be
 found at the summary page, http://sourceforge.net/projects/vtapeutils/ .
 
-Copyright (c) 2005, James R. Maynard, III
+Copyright (c) 2005, 2007, James R. Maynard, III
  All rights reserved.
 
 See the file LICENSE in this distribution for license terms.
@@ -18,12 +18,13 @@ See the file LICENSE in this distribution for license terms.
 #include "vtape.h"
 #include "awstape.h"
 
-int awstape_read(VTAPE_FILE *infile, char *buffer, unsigned int maxlen)
+int awstape_read(VTAPE_FILE *infile, unsigned char *buffer,
+                  unsigned int maxlen)
 {
   AWSTAPE_HDR header;
   unsigned int reclen = 0, blklen;
   int finished;
-  char *bufptr = buffer;
+  unsigned char *bufptr = buffer;
 
   /* Get the first block header. */
   if (fread(&header,(sizeof header),1,infile->file) < 1) {
@@ -83,11 +84,12 @@ int awstape_read(VTAPE_FILE *infile, char *buffer, unsigned int maxlen)
   return reclen;
 }
 
-int awstape_write(VTAPE_FILE *outfile, char *buffer, unsigned int reclength)
+int awstape_write(VTAPE_FILE *outfile, unsigned char *buffer,
+                  unsigned int reclength)
 {
   AWSTAPE_HDR header;
   int remain = reclength, blklen;
-  char *bufptr = buffer;
+  unsigned char *bufptr = buffer;
 
   /* Tapemark? If so, write just a tapemark header. */
   if (reclength == 0) {
@@ -107,11 +109,11 @@ int awstape_write(VTAPE_FILE *outfile, char *buffer, unsigned int reclength)
   header.flags_2 = 0;
 
   /* We may be writing several blocks to hold this record. */
-  while (remain != 0) {
+  while (remain > 0) {
 
     /* Block length is the smaller of the data remaining to be written and
         the maximum AWSTAPE chunk size. */
-    blklen = (reclength > outfile->maxchunk) ? outfile->maxchunk : reclength;
+    blklen = (remain > outfile->maxchunk) ? outfile->maxchunk : remain;
     remain -= blklen;
 
     /* Set up header with record lengths. */

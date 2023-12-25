@@ -2,11 +2,11 @@
 
   VTAPECP.C - Copies one virtual tape to another, with format conversion
 
-This file is part of the vtapeutils package of virtual tape amnagement
+This file is part of the vtapeutils package of virtual tape management
 utilities. The package is hosted at SourceForge. Complete information may be
 found at the summary page, http://sourceforge.net/projects/vtapeutils/ .
 
-Copyright (c) 2005, James R. Maynard, III
+Copyright (c) 2005, 2007, James R. Maynard, III
  All rights reserved.
 
 See the file LICENSE in this distribution for license terms.
@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
   int result;
   int totalblkcnt, filecnt, reclen;
   VTAPE_FILE intape, outtape;
-  char buffer[MAXREC];
+  unsigned char buffer[MAXREC];
   
   if (argc != 3) {
     printf("Usage: %s <inputtape> <outputtape>\n",argv[0]);
@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     printf("Error opening input tape file %s: %s\n", argv[1], strerror(errno));
     exit(1);
   }
-  result = vtape_open(&outtape, argv[2], "wb", VTAPE_UNKNOWN, 4096, FALSE);
+  result = vtape_open(&outtape, argv[2], "wb", VTAPE_UNKNOWN, 32767, FALSE);
   if (result < 0) {
     printf("Error opening output tape file %s: %s\n", argv[1],
             strerror(errno));
