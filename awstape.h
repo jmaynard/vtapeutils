@@ -3,10 +3,10 @@
   AWSTAPE.H - Data definitions and function prototypes for AWSTAPE processing
 
 This file is part of the vtapeutils package of virtual tape management
-utilities. The package is hosted at SourceForge. Complete information may be
-found at the summary page, http://sourceforge.net/projects/vtapeutils/ .
+utilities. The package is hosted at Github. Complete information may be
+found at the summary page, https://github.com/jmaynard/vtapeutils .
 
-Copyright (c) 2005, 2007, James R. Maynard, III
+Copyright James R. Maynard, III
  All rights reserved.
 
 See the file LICENSE in this distribution for license terms.

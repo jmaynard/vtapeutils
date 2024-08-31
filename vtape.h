@@ -4,10 +4,10 @@
             prototypes
 
 This file is part of the vtapeutils package of virtual tape management
-utilities. The package is hosted at SourceForge. Complete information may be
-found at the summary page, http://sourceforge.net/projects/vtapeutils/ .
+utilities. The package is hosted at Github. Complete information may be
+found at the summary page, https://github.com/jmaynard/vtapeutils .
 
-Copyright (c) 2005, 2007, James R. Maynard, III
+Copyright James R. Maynard, III
  All rights reserved.
 
 FakeTape is a trademark of Fundamental Software, Inc.
@@ -24,6 +24,7 @@ typedef enum _VTAPETYPE {
   VTAPE_TAP,
   VTAPE_TPC,
   VTAPE_FAKETAPE,
+  VTAPE_XTAPE,
 } VTAPE_TYPE;
 
 /* Virtual tape file control block. Contains all of the flags and file-related

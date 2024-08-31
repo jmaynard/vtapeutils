@@ -1,14 +1,16 @@
 # Makefile for the vtapeutils virtual tape utilities package. See the
 # file LICENSE for license terms.
 #
-# Copyright (c) 2005, 2007 James R. Maynard, III
+# Copyright James R. Maynard, III
 
-VERSION=0.2
+VERSION=0.3
 SOURCES=awstape.c ebcdic.c faketape.c stdlabel.c tap.c tpc.c vtape.c \
-	vtapelist.c vtapecp.c \
+	vtapelist.c vtapecp.c xtape.c\
 	Makefile LICENSE 
-HEADERS=awstape.h ebcdic.h faketape.h stdlabel.h tap.h tpc.h vtape.h
-LIBOBJECTS=awstape.o ebcdic.o faketape.o stdlabel.o tap.o tpc.o vtape.o
+HEADERS=awstape.h ebcdic.h faketape.h stdlabel.h tap.h tpc.h vtape.h \
+	xtape.h
+LIBOBJECTS=awstape.o ebcdic.o faketape.o stdlabel.o tap.o tpc.o vtape.o \
+	xtape.o
 OBJECTS=vtapelist.o vtapecp.o
 PROGRAMS=vtapelist vtapecp
 CCOPTS=-g
@@ -47,6 +49,9 @@ tap.o: tap.h tap.c
 
 tpc.o: tpc.h tpc.c
 	cc $(CCOPTS) -c tpc.c
+
+xtape.o: xtape.h xtape.c
+	cc $(CCOPTS) -c xtape.c
 
 clean:
 	rm $(OBJECTS) $(LIBOBJECTS) $(PROGRAMS)

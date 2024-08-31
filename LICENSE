@@ -1,10 +1,10 @@
 vtapeutils - Virtual tape management utilities
 
 This file is part of the vtapeutils package of virtual tape amnagement
-utilities. The package is hosted at SourceForge. Complete information may be
-found at the summary page, http://sourceforge.net/projects/vtapeutils/ .
+utilities. The package is hosted at Github. Complete information may be
+found at the summary page, https://github.com/jmaynard/vtapeutils .
 
-Copyright (c) 2005, James R. Maynard, III
+Copyright James R. Maynard, III
  All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
