@@ -64,8 +64,8 @@ int tap_read(VTAPE_FILE *infile, unsigned char *buffer, unsigned int maxlen)
   /* If odd-length record and header and trailer don't match, the record may
       be padded; shift the trailer down a byte, then read one more. */
   if (((reclen % 2) == 1) && (memcmp(&header,&trailer,sizeof header) != 0)) {
-    memmove(&trailer,&trailer+1,(sizeof trailer)-1);
-    if (fread(&trailer+sizeof trailer-1,1,1,infile->file) < 1) {
+    memmove(&trailer,(char*)&trailer+1,(sizeof trailer)-1);
+    if (fread((char*)&trailer+sizeof trailer-1,1,1,infile->file) < 1) {
       return -1;
     }
   }
